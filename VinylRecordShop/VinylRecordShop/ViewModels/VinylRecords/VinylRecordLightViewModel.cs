@@ -3,7 +3,7 @@ using VinylRecordShop.ViewModels.Base;
 
 namespace VinylRecordShop.ViewModels.VinylRecords
 {
-    public class VinylRecordDetailsViewModel : DetailViewModelBase<VinylRecord>
+    public class VinylRecordLightViewModel : EntityViewModel<VinylRecord>
     {
     }
 }

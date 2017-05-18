@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Controls;
 using VinylRecodShop.Model.Partial;
 using VinylRecordShop.Services.Services;
@@ -8,13 +9,13 @@ namespace VinylRecordShop.ViewModels.Base
 {
     public partial class ListViewModelBase<T> : ViewModelBase where T : class , IEntity 
     {
-        private BindingList<T> _dataSource;
+        private BindingList<EntityViewModel<T>> _dataSource;
         private IEntityService<T> _entityService;
-        private T _selectedItem;
+        private EntityViewModel<T> _selectedItem;
 
-        public virtual BindingList<T> EntityDataSource
+        public virtual BindingList<EntityViewModel<T>> EntityDataSource
         {
-            get { return _dataSource ?? (_dataSource = new BindingList<T>(LoadDataSource())); }
+            get { return _dataSource ?? (_dataSource = new BindingList<EntityViewModel<T>>(LoadDataSource())); }
             set
             {
                 _dataSource = value;
@@ -28,14 +29,19 @@ namespace VinylRecordShop.ViewModels.Base
             set { _entityService = value; }
         }
 
-        public T SelectedItem
+        public EntityViewModel<T> SelectedItem
         {
             get { return _selectedItem; }
             set
             {
                 _selectedItem = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(ItemSelected));
             }
+        }
+        public bool ItemSelected
+        {
+            get { return SelectedItem != null; }
         }
 
         public ListViewModelBase(IEntityService<T> service)
@@ -43,19 +49,24 @@ namespace VinylRecordShop.ViewModels.Base
             _entityService = service;
         }
 
-        protected virtual List<T> LoadDataSource()
+        protected virtual List<EntityViewModel<T>> LoadDataSource()
         {
-            return _entityService.GetAll();
+            return _entityService.GetAll().Select(Map).ToList();
+        }
+
+        protected virtual EntityViewModel<T> Map(T entity)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected virtual Page GetDetailPage(int entityId = 0)
         {
-            return new Page();
+            throw new System.NotImplementedException();
         }
 
         private void RefreshDataSource()
         {
-            EntityDataSource = new BindingList<T>(LoadDataSource());
+            EntityDataSource = new BindingList<EntityViewModel<T>>(LoadDataSource());
         }
     }
 }

@@ -9,5 +9,9 @@ namespace VinylRecordShop.ViewModels.VinylRecords
         public VinylRecordListViewModel() : base(new VinylRecordService())
         {
         }
+        protected override EntityViewModel<VinylRecord> Map(VinylRecord entity)
+        {
+            return new VinylRecordViewModel(entity);
+        }
     }
 }

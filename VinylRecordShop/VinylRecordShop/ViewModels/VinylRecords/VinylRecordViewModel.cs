@@ -8,12 +8,17 @@ using VinylRecordShop.ViewModels.Publishers;
 
 namespace VinylRecordShop.ViewModels.VinylRecords
 {
-    public class VinylRecordViewModel : DetailViewModelBase<VinylRecord>
+    public class VinylRecordViewModel : EntityViewModel<VinylRecord>
     {
         private readonly AuthorService _authorService = new AuthorService();
         private readonly PublisherService _publisherService= new PublisherService();
 
         public VinylRecordViewModel(int id): base(id , new VinylRecordService())
+        {
+            
+        }
+
+        public VinylRecordViewModel(VinylRecord entity): base(entity)
         {
             
         }
@@ -46,6 +51,56 @@ namespace VinylRecordShop.ViewModels.VinylRecords
                 Entity.CountryCode = value;
                 OnPropertyChanged();
             }
+        }
+
+        public short? ReleaseYear
+        {
+            get { return Entity.ReleaseYear; }
+            set
+            {
+                Entity.ReleaseYear = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Cost
+        {
+            get { return Entity.Cost; }
+            set
+            {
+                Entity.Cost = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public short VinylType
+        {
+            get { return Entity.VinylType; }
+            set
+            {
+                Entity.VinylType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        //TODO : implement
+        public int? GenreId
+        {
+            get { return null; }
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
+        //TODO : implement
+        public string GenreName
+        {
+            get { return string.Empty; }
+        }
+
+        public string VinylTypeName
+        {
+            get { return ((Logic.Enums.VinylType)Entity.VinylType).ToString(); }
         }
 
         public int AuthorId

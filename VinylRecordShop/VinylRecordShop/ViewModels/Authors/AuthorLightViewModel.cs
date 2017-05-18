@@ -3,7 +3,7 @@ using VinylRecordShop.ViewModels.Base;
 
 namespace VinylRecordShop.ViewModels.Authors
 {
-    public class AuthorLightViewModel : DetailViewModelBase<Author>
+    public class AuthorLightViewModel : EntityViewModel<Author>
     {
         public AuthorLightViewModel(Author author): base(author)
         {

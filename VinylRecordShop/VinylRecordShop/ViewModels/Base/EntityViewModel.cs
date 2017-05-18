@@ -3,27 +3,27 @@ using VinylRecordShop.Services.Services;
 
 namespace VinylRecordShop.ViewModels.Base
 {
-    public partial class DetailViewModelBase<T> : ViewModelBase where T: IEntity 
+    public partial class EntityViewModel<T> : ViewModelBase where T: IEntity 
     {
         private int? _entityId;
         private readonly IEntityService<T> _entityService;
         private T _entity;
 
-        protected T Entity
+        public T Entity
         {
             get { return _entity; }
         }
 
-        public DetailViewModelBase()
+        public EntityViewModel()
         {
         }
 
-        public DetailViewModelBase(T entity)
+        public EntityViewModel(T entity)
         {
             _entity = entity;
         }
 
-        public DetailViewModelBase(int entityId , IEntityService<T> service)
+        public EntityViewModel(int entityId , IEntityService<T> service)
         {
             _entityId = entityId;
             _entityService = service;

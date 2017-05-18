@@ -16,5 +16,10 @@ namespace VinylRecordShop.ViewModels.Publishers
         {
             return new PublisherDetailsPage(new PublisherViewModel(entityId));
         }
+
+        protected override EntityViewModel<Publisher> Map(Publisher entity)
+        {
+            return new PublisherViewModel(entity);
+        }
     }
 }

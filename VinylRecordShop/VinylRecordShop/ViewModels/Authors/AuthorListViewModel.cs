@@ -16,5 +16,10 @@ namespace VinylRecordShop.ViewModels.Authors
         {
             return new AuthorDetailsPage(new AuthorViewModel(entityId));
         }
+
+        protected override EntityViewModel<Author> Map(Author entity)
+        {
+            return new AuthorViewModel(entity);
+        }
     }
 }

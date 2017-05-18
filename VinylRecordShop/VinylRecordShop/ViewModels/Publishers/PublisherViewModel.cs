@@ -4,9 +4,14 @@ using VinylRecordShop.ViewModels.Base;
 
 namespace VinylRecordShop.ViewModels.Publishers
 {
-    public class PublisherViewModel : DetailViewModelBase<Publisher>
+    public class PublisherViewModel : EntityViewModel<Publisher>
     {
         public PublisherViewModel(int id): base(id , new PublisherService())
+        {
+
+        }
+
+        public PublisherViewModel(Publisher entity) : base(entity)
         {
 
         }

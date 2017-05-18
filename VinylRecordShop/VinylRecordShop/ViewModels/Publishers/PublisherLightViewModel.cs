@@ -3,7 +3,7 @@ using VinylRecordShop.ViewModels.Base;
 
 namespace VinylRecordShop.ViewModels.Publishers
 {
-    public class PublisherLightViewModel : DetailViewModelBase<Publisher>
+    public class PublisherLightViewModel : EntityViewModel<Publisher>
     {
         public PublisherLightViewModel(Publisher publisher) : base(publisher)
         {

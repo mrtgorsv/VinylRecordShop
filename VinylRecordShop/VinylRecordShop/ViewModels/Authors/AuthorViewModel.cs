@@ -4,10 +4,14 @@ using VinylRecordShop.ViewModels.Base;
 
 namespace VinylRecordShop.ViewModels.Authors
 {
-    public class AuthorViewModel : DetailViewModelBase<Author>
+    public class AuthorViewModel : EntityViewModel<Author>
     {
 
         public AuthorViewModel(int id): base(id , new AuthorService())
+        {
+
+        }
+        public AuthorViewModel(Author entity): base(entity)
         {
 
         }

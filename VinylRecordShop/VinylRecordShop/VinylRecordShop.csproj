@@ -64,6 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Logic\DelegateCommand.cs" />
+    <Compile Include="Logic\Enums\VinylType.cs" />
     <Compile Include="Logic\NavigationHelper.cs" />
     <Compile Include="Pages\Publisher\PublisherDetailsPage.xaml.cs">
       <DependentUpon>PublisherDetailsPage.xaml</DependentUpon>
@@ -75,8 +76,8 @@
     <Compile Include="ViewModels\Authors\AuthorViewModel.cs" />
     <Compile Include="ViewModels\Authors\AuthorListViewModel.cs" />
     <Compile Include="ViewModels\Authors\AuthorLightViewModel.cs" />
-    <Compile Include="ViewModels\Base\DetailViewModelBase.Commands.cs" />
-    <Compile Include="ViewModels\Base\DetailViewModelBase.cs" />
+    <Compile Include="ViewModels\Base\EntityViewModel.Commands.cs" />
+    <Compile Include="ViewModels\Base\EntityViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.Commands.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="ViewModels\Base\ListViewModelBase.Commands.cs" />
     <Compile Include="ViewModels\Base\ListViewModelBase.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordViewModel.cs" />
-    <Compile Include="ViewModels\VinylRecords\VinylRecordDetailsViewModel.cs" />
+    <Compile Include="ViewModels\VinylRecords\VinylRecordLightViewModel.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordListViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

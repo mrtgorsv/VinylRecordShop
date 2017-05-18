@@ -2,7 +2,7 @@
 
 namespace VinylRecordShop.ViewModels.Base
 {
-    public partial class DetailViewModelBase<T>
+    public partial class EntityViewModel<T>
     {
         private ICommand _saveCommand;
         private ICommand _cancelCommand;

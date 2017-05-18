@@ -36,7 +36,7 @@ namespace VinylRecordShop.ViewModels.Base
             {
                 throw new NullReferenceException("Элемент не выбран. Редактирование невозможно");
             }
-            Navigate(GetDetailPage(SelectedItem.Id));
+            Navigate(GetDetailPage(SelectedItem.Entity.Id));
         }
 
         private void Delete()
@@ -45,7 +45,7 @@ namespace VinylRecordShop.ViewModels.Base
             {
                 throw new NullReferenceException("Элемент не выбран. Удаление невозможно");
             }
-            _entityService.Delete(SelectedItem);
+            _entityService.Delete(SelectedItem.Entity);
             SelectedItem = null;
             Refresh();
         }

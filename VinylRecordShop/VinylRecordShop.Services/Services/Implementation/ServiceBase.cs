@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using VinylRecodShop.Model.Database.DatabaseContext;
 using VinylRecodShop.Model.Partial;
 
@@ -54,7 +56,8 @@ namespace VinylRecordShop.Services.Services.Implementation
         {
             using (VinylRecordEntities context = new VinylRecordEntities())
             {
-                return context.Set<T>().ToList();
+                var query = context.Set<T>();
+                return query.ToList();
             }
         }
     }
