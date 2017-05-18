@@ -78,6 +78,7 @@
     <Compile Include="ViewModels\Authors\AuthorLightViewModel.cs" />
     <Compile Include="ViewModels\Base\EntityViewModel.Commands.cs" />
     <Compile Include="ViewModels\Base\EntityViewModel.cs" />
+    <Compile Include="ViewModels\Base\IFilterViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.Commands.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="ViewModels\Publishers\PublisherListViewModel.cs" />
     <Compile Include="ViewModels\Base\ListViewModelBase.Commands.cs" />
     <Compile Include="ViewModels\Base\ListViewModelBase.cs" />
+    <Compile Include="ViewModels\VinylRecords\VinylRecordFilterViewModel.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordViewModel.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordLightViewModel.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordListViewModel.cs" />

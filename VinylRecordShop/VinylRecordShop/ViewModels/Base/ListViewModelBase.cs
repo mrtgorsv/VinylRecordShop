@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Data;
 using VinylRecodShop.Model.Partial;
 using VinylRecordShop.Services.Services;
 
@@ -9,19 +10,21 @@ namespace VinylRecordShop.ViewModels.Base
 {
     public partial class ListViewModelBase<T> : ViewModelBase where T : class , IEntity 
     {
-        private BindingList<EntityViewModel<T>> _dataSource;
-        private IEntityService<T> _entityService;
+        private ObservableCollection<EntityViewModel<T>> _dataSource;
         private EntityViewModel<T> _selectedItem;
 
-        public virtual BindingList<EntityViewModel<T>> EntityDataSource
+        private IEntityService<T> _entityService;
+
+        public virtual ObservableCollection<EntityViewModel<T>> EntityDataSource
         {
-            get { return _dataSource ?? (_dataSource = new BindingList<EntityViewModel<T>>(LoadDataSource())); }
+            get => _dataSource ?? (_dataSource = new ObservableCollection<EntityViewModel<T>>(LoadDataSource()));
             set
             {
                 _dataSource = value;
                 OnPropertyChanged();
             }
         }
+        protected virtual IFilterViewModel<T> DataGridFilterViewModel { get; set; }
 
         public IEntityService<T> EntityService
         {
@@ -66,7 +69,17 @@ namespace VinylRecordShop.ViewModels.Base
 
         private void RefreshDataSource()
         {
-            EntityDataSource = new BindingList<EntityViewModel<T>>(LoadDataSource());
+            EntityDataSource = new ObservableCollection<EntityViewModel<T>>(LoadDataSource());
+        }
+
+        protected void ApplyFilter()
+        {
+            CollectionViewSource.GetDefaultView(EntityDataSource).Refresh();
+        }
+
+        protected virtual bool Filter(EntityViewModel<T> entityViewModel)
+        {
+            return DataGridFilterViewModel.Filter(entityViewModel.Entity);
         }
     }
 }

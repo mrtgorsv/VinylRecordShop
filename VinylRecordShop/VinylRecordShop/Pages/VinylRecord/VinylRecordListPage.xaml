@@ -12,16 +12,51 @@
             <ToolBarTray DockPanel.Dock="Top">
                 <ToolBar>
                     <Button Command="{ Binding AddCommand }" Content="Добавить" />
-                    <Button Command="{ Binding EditCommand }" IsEnabled="{ Binding ItemSelected }" Content="Редактировать" />
+                    <Button Command="{ Binding EditCommand }" IsEnabled="{ Binding ItemSelected }"
+                            Content="Редактировать" />
                     <Button Command="{ Binding DeleteCommand }" IsEnabled="{ Binding ItemSelected }" Content="Удалить" />
                     <Button Command="{ Binding RefreshCommand }" Content="Обновить" />
                 </ToolBar>
             </ToolBarTray>
-            <DataGrid ItemsSource="{Binding EntityDataSource}">
+            <DataGrid ItemsSource="{Binding EntityDataSource}" AlternatingRowBackground="Azure" CanUserAddRows="False"
+                      CanUserSortColumns="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*" />
-                    <DataGridTextColumn Header="Автор" Binding="{Binding AuthorName}" Width="*" />
-                    <DataGridTextColumn Header="Издатель" Binding="{Binding PublisherName}" Width="*" />
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock
+                                        Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
+                                        Margin="5" />
+                                    <TextBox BorderBrush="LightGray" Width="50" Margin="5" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Автор" Binding="{Binding AuthorName}" Width="*" >
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock
+                                        Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
+                                        Margin="5" />
+                                    <TextBox BorderBrush="LightGray" Width="50" Margin="5" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Издатель" Binding="{Binding PublisherName}" Width="*">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock
+                                        Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
+                                        Margin="5" />
+                                    <TextBox BorderBrush="LightGray" Width="50" Margin="5" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Год выпуска" Binding="{Binding ReleaseYear}" Width="*" />
                     <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}" Width="*" />
                     <DataGridTextColumn Header="Тип" Binding="{Binding VinylTapeName}" Width="*" />
