@@ -1,6 +1,9 @@
-﻿namespace VinylRecordShop.Services.Services.Implementation
+﻿using VinylRecodShop.Model.Database.DatabaseContext;
+
+namespace VinylRecordShop.Services.Services.Implementation
 {
-    class VinylRecordService : IEntityService
+    public class VinylRecordService : ServiceBase<VinylRecord>
     {
+
     }
 }

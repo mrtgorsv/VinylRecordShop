@@ -2,8 +2,7 @@
 
 namespace VinylRecordShop.Services.Services.Implementation
 {
-    public class AuthorService : ServiceBase<Author>
+    public class PublisherService : ServiceBase<Publisher>
     {
-  
     }
 }

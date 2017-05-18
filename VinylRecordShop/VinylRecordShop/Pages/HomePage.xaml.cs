@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using VinylRecordShop.ViewModels.Home;
 
 namespace VinylRecordShop.Pages
 {
@@ -10,6 +11,7 @@ namespace VinylRecordShop.Pages
         public HomePage()
         {
             InitializeComponent();
+            DataContext = new HomeViewModel();
         }
     }
 }

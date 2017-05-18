@@ -8,6 +8,11 @@
       WindowTitle="Магазин виниловых пластинок">
 
     <Grid>
-        
+        <StackPanel>
+            <TextBlock Text="{Binding WelcomeMessage}"></TextBlock>
+            <Button Content="К списку пластинок" Command="{Binding ShowVinylRecordListCommand}"></Button>
+            <Button Content="К списку авторов" Command="{Binding ShowAuthorListCommand}"></Button>
+            <Button Content="К списку издателей" Command="{Binding ShowPublisherListCommand}"></Button>
+        </StackPanel>
     </Grid>
 </Page>
