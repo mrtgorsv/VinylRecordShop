@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using VinylRecordShop.ViewModels.Authors;
+﻿using VinylRecordShop.ViewModels.Authors;
 
 namespace VinylRecordShop.Pages.Author
 {

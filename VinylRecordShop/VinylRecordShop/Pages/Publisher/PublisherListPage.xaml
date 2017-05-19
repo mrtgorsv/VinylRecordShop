@@ -7,6 +7,11 @@
       d:DesignHeight="300" d:DesignWidth="300"
       WindowTitle="Список издателей">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="StackPanel">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+            </Style>
+        </Grid.Resources>
         <DockPanel LastChildFill="True">
             <ToolBarTray DockPanel.Dock="Top" Margin="5 5 5 0" IsLocked="True">
                 <ToolBar OverflowMode="Never">
@@ -19,16 +24,15 @@
             </ToolBarTray>
             <DataGrid ItemsSource="{Binding EntityDataSource}" AlternatingRowBackground="Azure" CanUserAddRows="False"
                       CanUserSortColumns="True" Margin="5 0 5 5" AutoGenerateColumns="False" IsReadOnly="True"
-                      SelectedItem="{ Binding SelectedItem }">
+                      SelectedItem="{ Binding SelectedItem }" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel HorizontalAlignment="Stretch" Width="150">
-                                    <TextBlock TextAlignment="Center"
-                                        Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
-                                        Margin="5" />
-                                    <TextBox BorderBrush="LightGray" Margin="5" HorizontalAlignment="Stretch"
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource CustomHeaderStyle }"
+                                               Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}" />
+                                    <TextBox Style="{StaticResource CustomFilterHeaderStyle }"
                                              Text="{Binding Path=DataContext.DataGridFilterViewModel.Name , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}} , Delay=1000, Mode=OneWayToSource , UpdateSourceTrigger=PropertyChanged}" />
                                 </StackPanel>
                             </DataTemplate>

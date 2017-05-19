@@ -40,6 +40,7 @@ namespace VinylRecordShop.ViewModels.Base
         {
 
             return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                .Where(ci => !ci.IsNeutralCulture && !ci.CultureTypes.HasFlag(CultureTypes.UserCustomCulture))
                 .Select(ci => new RegionInfo(ci.LCID))
                 .GroupBy(ri => ri.TwoLetterISORegionName)
                 .Select(g => new CountryViewModel
@@ -47,6 +48,13 @@ namespace VinylRecordShop.ViewModels.Base
                     Code = g.Key,
                     Name = g.First().DisplayName
                 }).ToList();
+        }
+
+        protected string GetCountryName(string code)
+        {
+            var cultureInfo = new CultureInfo(code);
+            var ri = new RegionInfo(cultureInfo.Name);
+            return ri.DisplayName;
         }
     }
 }

@@ -40,5 +40,22 @@ namespace VinylRecordShop.ViewModels.Genres
         {
             return new GenreListPage(new GenreListViewModel());
         }
+
+        protected override void CheckProperties()
+        {
+            OnPropertyChanged(nameof(Name));
+        }
+
+        protected override string Validate(string fieldName)
+        {
+            if (fieldName.Equals(nameof(Name)))
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    return "Поле 'Название' является обязательным";
+                }
+            }
+            return null;
+        }
     }
 }

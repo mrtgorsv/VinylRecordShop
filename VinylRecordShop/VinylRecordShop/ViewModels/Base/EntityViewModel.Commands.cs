@@ -14,5 +14,19 @@ namespace VinylRecordShop.ViewModels.Base
         {
             get { return new DelegateCommand(Save); }
         }
+
+        protected virtual void Cancel()
+        {
+            NavigationHelper.NavigationService.GoBack();
+        }
+
+        protected virtual void Save()
+        {
+            if (IsValid())
+            {
+                _entityService.AddOrUpdate(_entity);
+                ForceNavigate(GetListPage());
+            }
+        }
     }
 }

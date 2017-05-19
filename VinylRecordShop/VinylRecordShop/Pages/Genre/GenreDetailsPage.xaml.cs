@@ -15,6 +15,7 @@ namespace VinylRecordShop.Pages.Genre
 
         public GenreDetailsPage(GenreViewModel genreViewModel)
         {
+            InitializeComponent();
             DataContext = genreViewModel;
         }
     }

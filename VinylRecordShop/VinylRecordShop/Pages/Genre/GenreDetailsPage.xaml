@@ -14,11 +14,6 @@
                     <Setter Property="Width" Value="100px" />
                     <Setter Property="Margin" Value="5 5 0 5" />
                 </Style>
-                <Style TargetType="TextBox">
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                    <Setter Property="Height" Value="25" />
-                </Style>
                 <Style TargetType="ComboBox">
                     <Setter Property="HorizontalAlignment" Value="Stretch" />
                     <Setter Property="Margin" Value="5 5 0 5" />
@@ -35,7 +30,7 @@
             </StackPanel.Resources>
             <DockPanel>
                 <Label>Наименование</Label>
-                <TextBox Text="{Binding Name}" />
+                <TextBox Text="{Binding Name , ValidatesOnDataErrors=True}" />
             </DockPanel>
             <DockPanel>
                 <Label>Описание</Label>

@@ -1,13 +1,15 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Controls;
 using VinylRecodShop.Model.Partial;
-using VinylRecordShop.Logic;
 using VinylRecordShop.Services.Services;
 
 namespace VinylRecordShop.ViewModels.Base
 {
-    public abstract partial class EntityViewModel<T> : ViewModelBase where T: IEntity 
+    public abstract partial class EntityViewModel<T> : ViewModelBase, IDataErrorInfo where T : IEntity
     {
-        private int _entityId;
+        private readonly int _entityId;
         private readonly IEntityService<T> _entityService;
         private T _entity;
 
@@ -16,17 +18,17 @@ namespace VinylRecordShop.ViewModels.Base
             get { return _entity; }
         }
 
-        public EntityViewModel()
+        protected EntityViewModel()
         {
         }
 
-        public EntityViewModel(T entity)
+        protected EntityViewModel(T entity)
         {
             _entity = entity;
             _entityId = entity.Id;
         }
 
-        public EntityViewModel(int entityId , IEntityService<T> service)
+        protected EntityViewModel(int entityId, IEntityService<T> service)
         {
             _entityId = entityId;
             _entityService = service;
@@ -38,18 +40,49 @@ namespace VinylRecordShop.ViewModels.Base
             _entity = _entityService.Get(_entityId);
         }
 
-        protected virtual void Save()
-        {
-            _entityService.AddOrUpdate(_entity);
-
-            Navigate(GetListPage());
-        }
-
         protected abstract Page GetListPage();
 
-        protected virtual void Cancel()
+        #region Validating
+
+        public bool IsValidating;
+        public Dictionary<string, string> Errors = new Dictionary<string, string>();
+
+        public bool IsValid()
         {
-            NavigationHelper.NavigationService.GoBack();
+            IsValidating = true;
+            try
+            {
+                CheckProperties();
+            }
+            finally
+            {
+                IsValidating = false;
+            }
+            return !Errors.Any();
         }
+
+        protected abstract void CheckProperties();
+
+        protected abstract string Validate(string fieldName);
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = string.Empty;
+                if (!IsValidating) return result;
+                Errors.Remove(columnName);
+
+                result = Validate(columnName);
+
+                if (!string.IsNullOrWhiteSpace(result)) Errors.Add(columnName, result);
+
+                return result;
+            }
+        }
+
+        public string Error { get; }
+
+        #endregion
     }
 }

@@ -20,21 +20,23 @@
             </ToolBarTray>
             <DataGrid ItemsSource="{Binding EntityDataSource}" AlternatingRowBackground="Azure" CanUserAddRows="False"
                       CanUserSortColumns="True" Margin="5 0 5 5" AutoGenerateColumns="False" IsReadOnly="True"
-                      SelectedItem="{ Binding SelectedItem }">
+                      SelectedItem="{ Binding SelectedItem }" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="*">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel HorizontalAlignment="Stretch">
-                                    <TextBlock
-                                        Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
-                                        Margin="5" />
-                                    <TextBox BorderBrush="LightGray" Margin="5" HorizontalAlignment="Stretch"
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource CustomHeaderStyle }"
+                                               Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}" />
+                                    <TextBox Style="{StaticResource CustomFilterHeaderStyle }"
                                              Text="{Binding Path=DataContext.DataGridFilterViewModel.Name , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}} , Delay=1000, Mode=OneWayToSource , UpdateSourceTrigger=PropertyChanged}" />
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
+                    <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yy\}}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

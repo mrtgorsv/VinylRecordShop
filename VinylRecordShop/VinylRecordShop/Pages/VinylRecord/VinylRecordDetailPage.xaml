@@ -3,50 +3,35 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d"
       d:DesignHeight="300" d:DesignWidth="300"
-      xmlns:Enums="clr-namespace:VinylRecordShop.Logic.Enums"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       WindowTitle="Информация о пластинке">
-    
     <Page.Resources>
-        <ObjectDataProvider x:Key="VinylTypes" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="Enums:VinylType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        <Style TargetType="Label">
+            <Setter Property="Width" Value="100px" />
+            <Setter Property="Margin" Value="5 5 0 5" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="5 5 0 5" />
+            <Setter Property="Height" Value="25" />
+        </Style>
+        <Style TargetType="DockPanel">
+            <Setter Property="Width" Value="300px" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5 5 0 5" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Width" Value="75px" />
+        </Style>
     </Page.Resources>
 
     <Grid Margin="10" HorizontalAlignment="Stretch">
         <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="Label">
-                    <Setter Property="Width" Value="100px" />
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                </Style>
-                <Style TargetType="TextBox">
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                    <Setter Property="Height" Value="25" />
-                </Style>
-                <Style TargetType="ComboBox">
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                    <Setter Property="Height" Value="25" />
-                </Style>
-                <Style TargetType="DockPanel">
-                    <Setter Property="Width" Value="300px" />
-                </Style>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                    <Setter Property="HorizontalAlignment" Value="Right" />
-                    <Setter Property="Width" Value="75px" />
-                </Style>
-            </StackPanel.Resources>
             <DockPanel>
                 <Label>Наименование</Label>
-                <TextBox Text="{Binding Name}" />
+                <TextBox Text="{Binding Name , ValidatesOnDataErrors=True}" />
             </DockPanel>
             <DockPanel>
                 <Label>Автор</Label>
@@ -60,7 +45,7 @@
             </DockPanel>
             <DockPanel>
                 <Label>Год выпуска</Label>
-                <TextBox Text="{Binding ReleaseYear}" PreviewTextInput="NumberValidationTextBox" />
+                <xctk:IntegerUpDown Text="{Binding ReleaseYear , ValidatesOnDataErrors=True}" Minimum="1800" />
             </DockPanel>
             <DockPanel>
                 <Label>Страна</Label>
@@ -74,12 +59,11 @@
             </DockPanel>
             <DockPanel>
                 <Label>Тип</Label>
-                <ComboBox ItemsSource="{Binding Source={StaticResource VinylTypes}}" DisplayMemberPath="Name"
-                          SelectedValuePath="Value" SelectedValue="{Binding VinylType , Mode=TwoWay}" />
+                <ComboBox ItemsSource="{Binding VinylTypes}" SelectedItem="{Binding VinylType , Mode=TwoWay}" />
             </DockPanel>
             <DockPanel>
                 <Label>Цена</Label>
-                <TextBox Text="{Binding Cost}" PreviewTextInput="NumberValidationTextBox"></TextBox>
+                <xctk:IntegerUpDown Text="{Binding Cost}"/>
             </DockPanel>
             <DockPanel>
                 <Button Content="Сохранить" Command="{Binding SaveCommand}" />

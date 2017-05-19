@@ -42,5 +42,22 @@ namespace VinylRecordShop.ViewModels.Publishers
         {
             return new PublisherListPage();
         }
+
+        protected override void CheckProperties()
+        {
+            OnPropertyChanged(nameof(Name));
+        }
+
+        protected override string Validate(string fieldName)
+        {
+            if (fieldName.Equals(nameof(Name)))
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    return "Поле 'Название' является обязательным";
+                }
+            }
+            return null;
+        }
     }
 }

@@ -4,8 +4,6 @@ using VinylRecordShop.Pages.Author;
 using VinylRecordShop.Pages.Genre;
 using VinylRecordShop.Pages.Publisher;
 using VinylRecordShop.ViewModels.Base;
-using VinylRecordShop.ViewModels.Genres;
-using VinylRecordShop.ViewModels.VinylRecords;
 using VinylRecordListPage = VinylRecordShop.Pages.VinylRecord.VinylRecordListPage;
 
 namespace VinylRecordShop.ViewModels.Home

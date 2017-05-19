@@ -1,5 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Controls;
 using VinylRecodShop.Model.Database.DatabaseContext;
+using VinylRecordShop.Logic.Enums;
 using VinylRecordShop.Pages.Author;
 using VinylRecordShop.Services.Services.Implementation;
 using VinylRecordShop.ViewModels.Base;
@@ -47,9 +51,46 @@ namespace VinylRecordShop.ViewModels.Authors
             }
         }
 
+        public string CountryName
+        {
+            get { return GetCountryName(Entity.CountryCode); }
+        }
+        public DateTime BirthDate
+        {
+            get { return Entity.BirthDate ?? DateTime.Now; }
+            set { Entity.BirthDate = value; }
+        }
+
+        public List<CountryViewModel> CountryList
+        {
+            get { return GetCountryList(); }
+        }
+
+
         protected override Page GetListPage()
         {
             return new AuthorListPage(new AuthorListViewModel());
+        }
+
+        protected override void CheckProperties()
+        {
+            OnPropertyChanged(nameof(Name));
+        }
+
+        protected override string Validate(string fieldName)
+        {
+            string result = null;
+
+            if (fieldName.Equals(nameof(Name)))
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    result = "Поле 'ФИО' является обязательным";
+                }
+
+
+            }
+            return result;
         }
     }
 }

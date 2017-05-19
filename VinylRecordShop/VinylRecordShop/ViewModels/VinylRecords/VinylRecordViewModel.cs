@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using VinylRecodShop.Model.Database.DatabaseContext;
@@ -36,6 +37,15 @@ namespace VinylRecordShop.ViewModels.VinylRecords
             }
         }
 
+        public IEnumerable<VinylType> VinylTypes
+        {
+            get
+            {
+                return Enum.GetValues(typeof(VinylType))
+                    .Cast<VinylType>();
+            }
+        }
+
         public string Description
         {
             get { return Entity.Description; }
@@ -54,6 +64,11 @@ namespace VinylRecordShop.ViewModels.VinylRecords
                 Entity.CountryCode = value;
                 OnPropertyChanged();
             }
+        }
+
+        public string CountryName
+        {
+            get { return GetCountryName(Entity.CountryCode); }
         }
 
         public short? ReleaseYear
@@ -78,12 +93,16 @@ namespace VinylRecordShop.ViewModels.VinylRecords
 
         public VinylType VinylType
         {
-            get { return (VinylType)Entity.VinylType; }
+            get { return (VinylType) Entity.VinylType; }
             set
             {
-                Entity.VinylType = (short)value;
+                Entity.VinylType = (short) value;
                 OnPropertyChanged();
             }
+        }
+        public string VinylTypeName
+        {
+            get { return VinylType.GetDisplayName(); }
         }
 
         public int GenreId
@@ -140,6 +159,7 @@ namespace VinylRecordShop.ViewModels.VinylRecords
         {
             get { return _genreService.GetAll().Select(p => new GenreLightViewModel(p)).ToList(); }
         }
+
         public List<CountryViewModel> CountryList
         {
             get { return GetCountryList(); }
@@ -148,6 +168,49 @@ namespace VinylRecordShop.ViewModels.VinylRecords
         protected override Page GetListPage()
         {
             return new VinylRecordListPage(new VinylRecordListViewModel());
+        }
+
+        protected override void CheckProperties()
+        {
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(ReleaseYear));
+            OnPropertyChanged(nameof(Cost));
+        }
+
+        protected override string Validate(string fieldName)
+        {
+            string result = string.Empty;
+
+            switch (fieldName)
+            {
+                case "Name":
+
+                    if (string.IsNullOrWhiteSpace(Name))
+                    {
+                        result = "Поле 'Название' является обязательным";
+                    }
+                    break;
+                case "ReleaseYear":
+                    int minDate = 1800;
+                    int maxDate = DateTime.Now.Year;
+                    if (ReleaseYear == null)
+                    {
+                        result = "Поле 'Год выпуска' является обязательным";
+                    }
+                    if (ReleaseYear < minDate || ReleaseYear > maxDate)
+                    {
+                        result = string.Format("Поле 'Год выпуска' не может быть меньше {0} и больше {1}", minDate,
+                            maxDate);
+                    }
+                    break;
+                case "Cost":
+                    if (Cost <= 0)
+                    {
+                        result = "Поле 'Цена' должно быть больше 0";
+                    }
+                    break;
+            }
+            return result;
         }
     }
 }

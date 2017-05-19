@@ -14,7 +14,18 @@ namespace VinylRecordShop.ViewModels.Genres
         public int Id => Entity.Id;
         protected override Page GetListPage()
         {
-            throw new System.NotImplementedException();
+            return null;
+
+        }
+
+        protected override void CheckProperties()
+        {
+            //
+        }
+
+        protected override string Validate(string fieldName)
+        {
+            return null;
         }
     }
 }

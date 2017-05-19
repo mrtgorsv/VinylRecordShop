@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using VinylRecodShop.Model.Database.DatabaseContext;
-using VinylRecordShop.Pages.Author;
 using VinylRecordShop.ViewModels.Base;
 
 namespace VinylRecordShop.ViewModels.Authors
@@ -23,7 +22,17 @@ namespace VinylRecordShop.ViewModels.Authors
 
         protected override Page GetListPage()
         {
-            throw new System.NotImplementedException();
+            return null;
+        }
+
+        protected override void CheckProperties()
+        {
+            //
+        }
+
+        protected override string Validate(string fieldName)
+        {
+            return null;
         }
     }
 }
