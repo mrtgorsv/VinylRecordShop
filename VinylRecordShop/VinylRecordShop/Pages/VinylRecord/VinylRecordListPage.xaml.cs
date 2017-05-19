@@ -8,6 +8,10 @@ namespace VinylRecordShop.Pages.VinylRecord
     /// </summary>
     public partial class VinylRecordListPage : Page
     {
+        public VinylRecordListPage() : this(new VinylRecordListViewModel())
+        {
+        }
+
         public VinylRecordListPage(VinylRecordListViewModel viewModel)
         {
             InitializeComponent();

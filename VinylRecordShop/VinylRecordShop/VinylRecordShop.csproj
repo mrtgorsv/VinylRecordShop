@@ -66,6 +66,9 @@
     <Compile Include="Logic\DelegateCommand.cs" />
     <Compile Include="Logic\Enums\VinylType.cs" />
     <Compile Include="Logic\NavigationHelper.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Publisher\PublisherDetailsPage.xaml.cs">
       <DependentUpon>PublisherDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -76,10 +79,16 @@
     <Compile Include="ViewModels\Authors\AuthorViewModel.cs" />
     <Compile Include="ViewModels\Authors\AuthorListViewModel.cs" />
     <Compile Include="ViewModels\Authors\AuthorLightViewModel.cs" />
+    <Compile Include="ViewModels\Authors\AuthorFilterViewModel.cs" />
+    <Compile Include="ViewModels\Base\CountryViewModel.cs" />
     <Compile Include="ViewModels\Base\EntityViewModel.Commands.cs" />
     <Compile Include="ViewModels\Base\EntityViewModel.cs" />
     <Compile Include="ViewModels\Base\IFilterViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\Genres\GenreLightViewModel.cs" />
+    <Compile Include="ViewModels\Genres\GenreListViewModel.cs" />
+    <Compile Include="ViewModels\Genres\GenreViewModel.cs" />
+    <Compile Include="ViewModels\Genres\GenreFilterViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.Commands.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="ViewModels\Publishers\PublisherLightViewModel.cs" />
@@ -87,6 +96,7 @@
     <Compile Include="ViewModels\Publishers\PublisherListViewModel.cs" />
     <Compile Include="ViewModels\Base\ListViewModelBase.Commands.cs" />
     <Compile Include="ViewModels\Base\ListViewModelBase.cs" />
+    <Compile Include="ViewModels\Publishers\PublisherFilterViewModel.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordFilterViewModel.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordViewModel.cs" />
     <Compile Include="ViewModels\VinylRecords\VinylRecordLightViewModel.cs" />
@@ -95,6 +105,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Author\AuthorDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

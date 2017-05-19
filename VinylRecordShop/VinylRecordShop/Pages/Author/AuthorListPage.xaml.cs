@@ -8,10 +8,10 @@ namespace VinylRecordShop.Pages.Author
     /// </summary>
     public partial class AuthorListPage : Page
     {
-        public AuthorListPage()
+        public AuthorListPage() : this(new AuthorListViewModel())
         {
-            InitializeComponent();
         }
+
         public AuthorListPage(AuthorListViewModel viewModel)
         {
             InitializeComponent();

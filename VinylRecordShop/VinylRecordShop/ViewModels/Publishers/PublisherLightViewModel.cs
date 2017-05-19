@@ -1,4 +1,5 @@
-﻿using VinylRecodShop.Model.Database.DatabaseContext;
+﻿using System.Windows.Controls;
+using VinylRecodShop.Model.Database.DatabaseContext;
 using VinylRecordShop.ViewModels.Base;
 
 namespace VinylRecordShop.ViewModels.Publishers
@@ -12,5 +13,9 @@ namespace VinylRecordShop.ViewModels.Publishers
         public string Name => Entity.Name;
 
         public int Id => Entity.Id;
+        protected override Page GetListPage()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

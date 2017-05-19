@@ -2,14 +2,13 @@
 using VinylRecodShop.Model.Database.DatabaseContext;
 using VinylRecordShop.ViewModels.Base;
 
-namespace VinylRecordShop.ViewModels.VinylRecords
+namespace VinylRecordShop.ViewModels.Genres
 {
-    public class VinylRecordLightViewModel : EntityViewModel<VinylRecord>
+    public class GenreLightViewModel : EntityViewModel<Genre>
     {
-        public VinylRecordLightViewModel(VinylRecord record) : base(record)
+        public GenreLightViewModel(Genre genre) : base(genre)
         {
         }
-
         public string Name => Entity.Name;
 
         public int Id => Entity.Id;

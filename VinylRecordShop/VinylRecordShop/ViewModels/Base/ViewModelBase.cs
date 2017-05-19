@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using VinylRecordShop.Annotations;
@@ -18,6 +21,32 @@ namespace VinylRecordShop.ViewModels.Base
         protected void Navigate(Page page)
         {
             NavigationHelper.NavigationService.Navigate(page);
+        }
+
+        protected void ForceNavigate(Page page = null)
+        {
+            if (page != null)
+            {
+                NavigationHelper.NavigationService.Navigate(page);
+            }
+            else
+            {
+                NavigationHelper.NavigationService.GoBack();
+            }
+            NavigationHelper.NavigationService.RemoveBackEntry();
+        }
+
+        protected List<CountryViewModel> GetCountryList()
+        {
+
+            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                .Select(ci => new RegionInfo(ci.LCID))
+                .GroupBy(ri => ri.TwoLetterISORegionName)
+                .Select(g => new CountryViewModel
+                {
+                    Code = g.Key,
+                    Name = g.First().DisplayName
+                }).ToList();
         }
     }
 }

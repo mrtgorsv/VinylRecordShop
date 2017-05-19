@@ -9,8 +9,8 @@
 
     <Grid>
         <DockPanel LastChildFill="True">
-            <ToolBarTray DockPanel.Dock="Top">
-                <ToolBar>
+            <ToolBarTray DockPanel.Dock="Top" Margin="5 5 5 0" IsLocked="True">
+                <ToolBar OverflowMode="Never">
                     <Button Command="{ Binding AddCommand }" Content="Добавить" />
                     <Button Command="{ Binding EditCommand }" IsEnabled="{ Binding ItemSelected }"
                             Content="Редактировать" />
@@ -19,44 +19,24 @@
                 </ToolBar>
             </ToolBarTray>
             <DataGrid ItemsSource="{Binding EntityDataSource}" AlternatingRowBackground="Azure" CanUserAddRows="False"
-                      CanUserSortColumns="True">
+                      CanUserSortColumns="True" Margin="5 0 5 5" AutoGenerateColumns="False" IsReadOnly="True"
+                      SelectedItem="{ Binding SelectedItem }">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel>
+                                <StackPanel HorizontalAlignment="Stretch">
                                     <TextBlock
                                         Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
                                         Margin="5" />
-                                    <TextBox BorderBrush="LightGray" Width="50" Margin="5" />
+                                    <TextBox BorderBrush="LightGray" Margin="5" HorizontalAlignment="Stretch"
+                                             Text="{Binding Path=DataContext.DataGridFilterViewModel.Name , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}} , Delay=1000, Mode=OneWayToSource , UpdateSourceTrigger=PropertyChanged}" />
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Автор" Binding="{Binding AuthorName}" Width="*" >
-                        <DataGridTextColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock
-                                        Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
-                                        Margin="5" />
-                                    <TextBox BorderBrush="LightGray" Width="50" Margin="5" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTextColumn.HeaderTemplate>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Издатель" Binding="{Binding PublisherName}" Width="*">
-                        <DataGridTextColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock
-                                        Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}"
-                                        Margin="5" />
-                                    <TextBox BorderBrush="LightGray" Width="50" Margin="5" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTextColumn.HeaderTemplate>
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Автор" Binding="{Binding AuthorName}" Width="*" />
+                    <DataGridTextColumn Header="Издатель" Binding="{Binding PublisherName}" Width="*" />
                     <DataGridTextColumn Header="Год выпуска" Binding="{Binding ReleaseYear}" Width="*" />
                     <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}" Width="*" />
                     <DataGridTextColumn Header="Тип" Binding="{Binding VinylTapeName}" Width="*" />

@@ -28,5 +28,6 @@ namespace VinylRecodShop.Model.Database.DatabaseContext
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
         public virtual DbSet<VinylRecord> VinylRecords { get; set; }
+        public virtual DbSet<Genre> Genres { get; set; }
     }
 }

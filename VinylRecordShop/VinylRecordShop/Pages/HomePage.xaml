@@ -4,15 +4,23 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
       WindowTitle="Магазин виниловых пластинок">
-
     <Grid>
         <StackPanel>
-            <TextBlock Text="{Binding WelcomeMessage}"></TextBlock>
-            <Button Content="К списку пластинок" Command="{Binding ShowVinylRecordListCommand}"></Button>
-            <Button Content="К списку авторов" Command="{Binding ShowAuthorListCommand}"></Button>
-            <Button Content="К списку издателей" Command="{Binding ShowPublisherListCommand}"></Button>
+            <TextBlock Text="{Binding WelcomeMessage}" HorizontalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+            <DockPanel LastChildFill="False"  HorizontalAlignment="Center">
+                <DockPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="10" />
+                        <Setter Property="Padding" Value="10" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                    </Style>
+                </DockPanel.Resources>
+                <Button Content="Виниловые пластинки" Command="{Binding ShowVinylRecordListCommand}"></Button>
+                <Button Content="Жанры" Command="{Binding ShowGenreListCommand}"></Button>
+                <Button Content="Авторы" Command="{Binding ShowAuthorListCommand}"></Button>
+                <Button Content="Издатели" Command="{Binding ShowPublisherListCommand}"></Button>
+            </DockPanel>
         </StackPanel>
     </Grid>
 </Page>

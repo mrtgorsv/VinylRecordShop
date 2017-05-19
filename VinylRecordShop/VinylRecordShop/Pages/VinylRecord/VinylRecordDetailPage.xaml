@@ -1,13 +1,90 @@
 ﻿<Page x:Class="VinylRecordShop.Pages.VinylRecord.VinylRecordDetailPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d" 
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d"
       d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:Enums="clr-namespace:VinylRecordShop.Logic.Enums"
       WindowTitle="Информация о пластинке">
+    
+    <Page.Resources>
+        <ObjectDataProvider x:Key="VinylTypes" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Enums:VinylType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Page.Resources>
 
-    <Grid>
-        
+    <Grid Margin="10" HorizontalAlignment="Stretch">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Width" Value="100px" />
+                    <Setter Property="Margin" Value="5 5 0 5" />
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="5 5 0 5" />
+                    <Setter Property="Height" Value="25" />
+                </Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="5 5 0 5" />
+                    <Setter Property="Height" Value="25" />
+                </Style>
+                <Style TargetType="DockPanel">
+                    <Setter Property="Width" Value="300px" />
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="5 5 0 5" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="Width" Value="75px" />
+                </Style>
+            </StackPanel.Resources>
+            <DockPanel>
+                <Label>Наименование</Label>
+                <TextBox Text="{Binding Name}" />
+            </DockPanel>
+            <DockPanel>
+                <Label>Автор</Label>
+                <ComboBox ItemsSource="{Binding AuthorList }" DisplayMemberPath="Name"
+                          SelectedValuePath="Id" SelectedValue="{Binding AuthorId, Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel>
+                <Label>Издатель</Label>
+                <ComboBox ItemsSource="{Binding PublisherList}" DisplayMemberPath="Name"
+                          SelectedValuePath="Id" SelectedValue="{Binding PublisherId , Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel>
+                <Label>Год выпуска</Label>
+                <TextBox Text="{Binding ReleaseYear}" PreviewTextInput="NumberValidationTextBox" />
+            </DockPanel>
+            <DockPanel>
+                <Label>Страна</Label>
+                <ComboBox ItemsSource="{Binding CountryList}" DisplayMemberPath="Name"
+                          SelectedValuePath="Code" SelectedValue="{Binding CountryCode , Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel>
+                <Label>Жанр</Label>
+                <ComboBox ItemsSource="{Binding GenreList}" DisplayMemberPath="Name"
+                          SelectedValuePath="Id" SelectedValue="{Binding GenreId , Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel>
+                <Label>Тип</Label>
+                <ComboBox ItemsSource="{Binding Source={StaticResource VinylTypes}}" DisplayMemberPath="Name"
+                          SelectedValuePath="Value" SelectedValue="{Binding VinylType , Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel>
+                <Label>Цена</Label>
+                <TextBox Text="{Binding Cost}" PreviewTextInput="NumberValidationTextBox"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Button Content="Сохранить" Command="{Binding SaveCommand}" />
+                <Button Content="Отмена" Command="{Binding CancelCommand}" />
+            </DockPanel>
+        </StackPanel>
     </Grid>
 </Page>

@@ -12,21 +12,19 @@ namespace VinylRecodShop.Model.Database.DatabaseContext
     using System;
     using System.Collections.Generic;
     
-    public partial class VinylRecord
+    public partial class Genre
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Genre()
+        {
+            this.VinylRecords = new HashSet<VinylRecord>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Nullable<short> ReleaseYear { get; set; }
-        public Nullable<int> AuthorId { get; set; }
-        public Nullable<int> PublisherId { get; set; }
-        public string CountryCode { get; set; }
-        public short VinylType { get; set; }
-        public int Cost { get; set; }
-        public Nullable<int> GenreId { get; set; }
     
-        public virtual Author Author { get; set; }
-        public virtual Publisher Publisher { get; set; }
-        public virtual Genre Genre { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VinylRecord> VinylRecords { get; set; }
     }
 }

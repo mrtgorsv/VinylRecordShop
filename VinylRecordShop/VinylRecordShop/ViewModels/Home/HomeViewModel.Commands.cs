@@ -1,8 +1,10 @@
 ﻿using System.Windows.Input;
 using VinylRecordShop.Logic;
 using VinylRecordShop.Pages.Author;
+using VinylRecordShop.Pages.Genre;
 using VinylRecordShop.Pages.Publisher;
 using VinylRecordShop.ViewModels.Base;
+using VinylRecordShop.ViewModels.Genres;
 using VinylRecordShop.ViewModels.VinylRecords;
 using VinylRecordListPage = VinylRecordShop.Pages.VinylRecord.VinylRecordListPage;
 
@@ -25,6 +27,11 @@ namespace VinylRecordShop.ViewModels.Home
             get { return new DelegateCommand(ShowPublisherList); }
         }
 
+        public ICommand ShowGenreListCommand
+        {
+            get { return new DelegateCommand(ShowGenreList); }
+        }
+
         private void ShowPublisherList()
         {
             Navigate(new PublisherListPage());
@@ -37,7 +44,13 @@ namespace VinylRecordShop.ViewModels.Home
 
         private void ShowVinylRecordList()
         {
-            var page = new VinylRecordListPage(new VinylRecordListViewModel());
+            var page = new VinylRecordListPage();
+            Navigate(page);
+        }
+
+        private void ShowGenreList()
+        {
+            var page = new GenreListPage();
             Navigate(page);
         }
     }

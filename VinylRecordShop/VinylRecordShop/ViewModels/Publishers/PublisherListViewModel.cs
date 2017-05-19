@@ -10,6 +10,7 @@ namespace VinylRecordShop.ViewModels.Publishers
     {
         public PublisherListViewModel() : base(new PublisherService())
         {
+            DataGridFilterViewModel = new PublisherFilterViewModel();
         }
 
         protected override Page GetDetailPage(int entityId = 0)

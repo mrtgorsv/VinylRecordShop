@@ -1,22 +1,21 @@
 ﻿using System.Windows.Controls;
 using VinylRecodShop.Model.Database.DatabaseContext;
-using VinylRecordShop.Pages.Author;
+using VinylRecordShop.Pages.Genre;
 using VinylRecordShop.Services.Services.Implementation;
 using VinylRecordShop.ViewModels.Base;
 
-namespace VinylRecordShop.ViewModels.Authors
+namespace VinylRecordShop.ViewModels.Genres
 {
-    public class AuthorViewModel : EntityViewModel<Author>
+    public class GenreViewModel : EntityViewModel<Genre>
     {
-
-        public AuthorViewModel(int id): base(id , new AuthorService())
+        public GenreViewModel(int id) : base(id, new GenreService())
         {
-
         }
-        public AuthorViewModel(Author entity): base(entity)
+
+        public GenreViewModel(Genre entity) : base(entity)
         {
-
         }
+
         public string Name
         {
             get { return Entity.Name; }
@@ -37,19 +36,9 @@ namespace VinylRecordShop.ViewModels.Authors
             }
         }
 
-        public string CountryCode
-        {
-            get { return Entity.CountryCode; }
-            set
-            {
-                Entity.CountryCode = value;
-                OnPropertyChanged();
-            }
-        }
-
         protected override Page GetListPage()
         {
-            return new AuthorListPage(new AuthorListViewModel());
+            return new GenreListPage(new GenreListViewModel());
         }
     }
 }

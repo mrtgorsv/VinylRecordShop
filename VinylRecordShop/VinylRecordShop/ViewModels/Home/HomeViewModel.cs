@@ -4,7 +4,7 @@
     {
         private string _welocmeMessage;
 
-        public string WelocmeMessage
+        public string WelcomeMessage
         {
             get { return _welocmeMessage; }
             set { _welocmeMessage = value; }
@@ -12,7 +12,7 @@
 
         public HomeViewModel()
         {
-            WelocmeMessage = "Добро пожаловать в магазин виниловых пластинок";
+            WelcomeMessage = "Добро пожаловать в магазин виниловых пластинок";
         }
     }
 }

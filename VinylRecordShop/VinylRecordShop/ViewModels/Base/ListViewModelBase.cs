@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -8,7 +9,7 @@ using VinylRecordShop.Services.Services;
 
 namespace VinylRecordShop.ViewModels.Base
 {
-    public partial class ListViewModelBase<T> : ViewModelBase where T : class , IEntity 
+    public abstract partial class ListViewModelBase<T> : ViewModelBase where T : class , IEntity 
     {
         private ObservableCollection<EntityViewModel<T>> _dataSource;
         private EntityViewModel<T> _selectedItem;
@@ -17,14 +18,28 @@ namespace VinylRecordShop.ViewModels.Base
 
         public virtual ObservableCollection<EntityViewModel<T>> EntityDataSource
         {
-            get => _dataSource ?? (_dataSource = new ObservableCollection<EntityViewModel<T>>(LoadDataSource()));
+            get {return _dataSource ?? (_dataSource = InitilizeDataSource()); } 
             set
             {
                 _dataSource = value;
                 OnPropertyChanged();
             }
         }
-        protected virtual IFilterViewModel<T> DataGridFilterViewModel { get; set; }
+
+        private ObservableCollection<EntityViewModel<T>> InitilizeDataSource()
+        {
+            var datasource = new ObservableCollection<EntityViewModel<T>>(LoadDataSource());
+
+            if (DataGridFilterViewModel != null)
+            {
+                CollectionViewSource.GetDefaultView(datasource).Filter = (entityViewModel) => Filter(entityViewModel as EntityViewModel<T>);
+                DataGridFilterViewModel.FilterChanged += OnFilterChanged;
+            }
+
+            return datasource;
+        }
+
+        public IFilterViewModel<T> DataGridFilterViewModel { get; set; }
 
         public IEntityService<T> EntityService
         {
@@ -57,28 +72,31 @@ namespace VinylRecordShop.ViewModels.Base
             return _entityService.GetAll().Select(Map).ToList();
         }
 
-        protected virtual EntityViewModel<T> Map(T entity)
-        {
-            throw new System.NotImplementedException();
-        }
+        protected abstract  EntityViewModel<T> Map(T entity);
 
-        protected virtual Page GetDetailPage(int entityId = 0)
-        {
-            throw new System.NotImplementedException();
-        }
+        protected abstract  Page GetDetailPage(int entityId = 0);
 
         private void RefreshDataSource()
         {
             EntityDataSource = new ObservableCollection<EntityViewModel<T>>(LoadDataSource());
         }
 
-        protected void ApplyFilter()
+        private void OnFilterChanged(object sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        public void ApplyFilter()
         {
             CollectionViewSource.GetDefaultView(EntityDataSource).Refresh();
         }
 
-        protected virtual bool Filter(EntityViewModel<T> entityViewModel)
+        public virtual bool Filter(EntityViewModel<T> entityViewModel)
         {
+            if (entityViewModel == null)
+            {
+                return true;
+            }
             return DataGridFilterViewModel.Filter(entityViewModel.Entity);
         }
     }

@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using VinylRecodShop.Model.Database.DatabaseContext;
+using VinylRecordShop.Logic.Enums;
+using VinylRecordShop.Pages.VinylRecord;
 using VinylRecordShop.Services.Services.Implementation;
 using VinylRecordShop.ViewModels.Authors;
 using VinylRecordShop.ViewModels.Base;
+using VinylRecordShop.ViewModels.Genres;
 using VinylRecordShop.ViewModels.Publishers;
 
 namespace VinylRecordShop.ViewModels.VinylRecords
@@ -11,16 +15,15 @@ namespace VinylRecordShop.ViewModels.VinylRecords
     public class VinylRecordViewModel : EntityViewModel<VinylRecord>
     {
         private readonly AuthorService _authorService = new AuthorService();
-        private readonly PublisherService _publisherService= new PublisherService();
+        private readonly PublisherService _publisherService = new PublisherService();
+        private readonly GenreService _genreService = new GenreService();
 
-        public VinylRecordViewModel(int id): base(id , new VinylRecordService())
+        public VinylRecordViewModel(int id) : base(id, new VinylRecordService())
         {
-            
         }
 
-        public VinylRecordViewModel(VinylRecord entity): base(entity)
+        public VinylRecordViewModel(VinylRecord entity) : base(entity)
         {
-            
         }
 
         public string Name
@@ -73,34 +76,24 @@ namespace VinylRecordShop.ViewModels.VinylRecords
             }
         }
 
-        public short VinylType
+        public VinylType VinylType
         {
-            get { return Entity.VinylType; }
+            get { return (VinylType)Entity.VinylType; }
             set
             {
-                Entity.VinylType = value;
+                Entity.VinylType = (short)value;
                 OnPropertyChanged();
             }
         }
 
-        //TODO : implement
-        public int? GenreId
+        public int GenreId
         {
-            get { return null; }
+            get { return Entity.GenreId ?? 0; }
             set
             {
+                Entity.GenreId = value;
                 OnPropertyChanged();
             }
-        }
-        //TODO : implement
-        public string GenreName
-        {
-            get { return string.Empty; }
-        }
-
-        public string VinylTypeName
-        {
-            get { return ((Logic.Enums.VinylType)Entity.VinylType).ToString(); }
         }
 
         public int AuthorId
@@ -125,12 +118,12 @@ namespace VinylRecordShop.ViewModels.VinylRecords
 
         public string AuthorName
         {
-            get { return Entity.AuthorId > 0 ? Entity.Author.Name : string.Empty; }
+            get { return Entity.Author != null ? Entity.Author.Name : string.Empty; }
         }
 
         public string PublisherName
         {
-            get { return Entity.PublisherId > 0 ? Entity.Publisher.Name : string.Empty; }
+            get { return Entity.Publisher != null ? Entity.Publisher.Name : string.Empty; }
         }
 
         public List<AuthorLightViewModel> AuthorList
@@ -141,6 +134,20 @@ namespace VinylRecordShop.ViewModels.VinylRecords
         public List<PublisherLightViewModel> PublisherList
         {
             get { return _publisherService.GetAll().Select(p => new PublisherLightViewModel(p)).ToList(); }
+        }
+
+        public List<GenreLightViewModel> GenreList
+        {
+            get { return _genreService.GetAll().Select(p => new GenreLightViewModel(p)).ToList(); }
+        }
+        public List<CountryViewModel> CountryList
+        {
+            get { return GetCountryList(); }
+        }
+
+        protected override Page GetListPage()
+        {
+            return new VinylRecordListPage(new VinylRecordListViewModel());
         }
     }
 }

@@ -2,12 +2,12 @@
 using VinylRecodShop.Model.Database.DatabaseContext;
 using VinylRecordShop.ViewModels.Base;
 
-namespace VinylRecordShop.ViewModels.VinylRecords
+namespace VinylRecordShop.ViewModels.Authors
 {
-    public class VinylRecordFilterViewModel : ViewModelBase , IFilterViewModel<VinylRecord>
+    public class AuthorFilterViewModel : ViewModelBase , IFilterViewModel<Author>
     {
         private string _name;
-        private string _releaseYear;
+        private string _countryCode;
         public event EventHandler FilterChanged;
 
         public string Name
@@ -23,15 +23,15 @@ namespace VinylRecordShop.ViewModels.VinylRecords
             }
         }
 
-        public string ReleaseYear
+        public string CountryCode
         {
             get
             {
-                return _releaseYear;
+                return _countryCode;
             }
             set
             {
-                _releaseYear = value;
+                _countryCode = value;
                 OnFilterChanged();
             }
         }
@@ -45,7 +45,7 @@ namespace VinylRecordShop.ViewModels.VinylRecords
             }
         }
 
-        public bool Filter(VinylRecord enity)
+        public bool Filter(Author enity)
         {
             bool accepted = true;
 
@@ -53,9 +53,9 @@ namespace VinylRecordShop.ViewModels.VinylRecords
             {
                 accepted = enity.Name.Contains(Name);
             }
-            if (!string.IsNullOrWhiteSpace(ReleaseYear))
+            if (!string.IsNullOrWhiteSpace(CountryCode))
             {
-                accepted = enity.Name.Contains(ReleaseYear);
+                accepted = enity.CountryCode.Contains(CountryCode);
             }
             return accepted;
         }

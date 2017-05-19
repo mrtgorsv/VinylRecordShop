@@ -24,6 +24,7 @@ namespace VinylRecodShop.Model.Database.DatabaseContext
         public string Name { get; set; }
         public string CountryCode { get; set; }
         public string Description { get; set; }
+        public Nullable<System.DateTime> BirthDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VinylRecord> VinylRecords { get; set; }

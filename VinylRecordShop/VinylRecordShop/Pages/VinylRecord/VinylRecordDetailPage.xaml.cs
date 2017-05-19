@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Text.RegularExpressions;
+using System.Windows.Controls;
+using System.Windows.Input;
+using VinylRecordShop.ViewModels.VinylRecords;
 
 namespace VinylRecordShop.Pages.VinylRecord
 {
@@ -10,6 +13,17 @@ namespace VinylRecordShop.Pages.VinylRecord
         public VinylRecordDetailPage()
         {
             InitializeComponent();
+        }
+        public VinylRecordDetailPage(VinylRecordViewModel viewModel)
+        {
+            InitializeComponent();
+            DataContext = viewModel;
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

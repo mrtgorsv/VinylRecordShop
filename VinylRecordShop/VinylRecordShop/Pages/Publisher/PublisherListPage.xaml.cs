@@ -8,10 +8,10 @@ namespace VinylRecordShop.Pages.Publisher
     /// </summary>
     public partial class PublisherListPage : Page
     {
-        public PublisherListPage()
+        public PublisherListPage() : this(new PublisherListViewModel())
         {
-            InitializeComponent();
         }
+
         public PublisherListPage(PublisherListViewModel viewModel)
         {
             InitializeComponent();

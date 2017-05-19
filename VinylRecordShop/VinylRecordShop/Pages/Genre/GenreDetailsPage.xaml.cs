@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using VinylRecordShop.ViewModels.Genres;
 
 namespace VinylRecordShop.Pages.Genre
 {
@@ -10,6 +11,11 @@ namespace VinylRecordShop.Pages.Genre
         public GenreDetailsPage()
         {
             InitializeComponent();
+        }
+
+        public GenreDetailsPage(GenreViewModel genreViewModel)
+        {
+            DataContext = genreViewModel;
         }
     }
 }

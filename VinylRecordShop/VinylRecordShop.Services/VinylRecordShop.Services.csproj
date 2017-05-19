@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IEntityService.cs" />
+    <Compile Include="Services\Implementation\AppService.cs" />
+    <Compile Include="Services\Implementation\GenreService.cs" />
     <Compile Include="Services\Implementation\AuthorService.cs" />
     <Compile Include="Services\Implementation\PublisherService.cs" />
     <Compile Include="Services\Implementation\ServiceBase.cs" />

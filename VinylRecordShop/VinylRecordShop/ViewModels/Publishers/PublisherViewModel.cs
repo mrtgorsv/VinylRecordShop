@@ -1,4 +1,6 @@
-﻿using VinylRecodShop.Model.Database.DatabaseContext;
+﻿using System.Windows.Controls;
+using VinylRecodShop.Model.Database.DatabaseContext;
+using VinylRecordShop.Pages.Publisher;
 using VinylRecordShop.Services.Services.Implementation;
 using VinylRecordShop.ViewModels.Base;
 
@@ -34,6 +36,11 @@ namespace VinylRecordShop.ViewModels.Publishers
                 Entity.Description = value;
                 OnPropertyChanged();
             }
+        }
+
+        protected override Page GetListPage()
+        {
+            return new PublisherListPage();
         }
     }
 }

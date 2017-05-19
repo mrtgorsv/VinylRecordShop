@@ -67,6 +67,9 @@
     <Compile Include="Database\DatabaseContext\Author.cs">
       <DependentUpon>VinylRecordModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\DatabaseContext\Genre.cs">
+      <DependentUpon>VinylRecordModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\DatabaseContext\Publisher.cs">
       <DependentUpon>VinylRecordModel.tt</DependentUpon>
     </Compile>
@@ -88,6 +91,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VinylRecordModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Partial\Genre.cs" />
     <Compile Include="Partial\Publisher.cs" />
     <Compile Include="Partial\IEntity.cs" />
     <Compile Include="Partial\Author.cs" />

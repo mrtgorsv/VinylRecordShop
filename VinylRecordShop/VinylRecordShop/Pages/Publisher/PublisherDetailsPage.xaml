@@ -6,50 +6,43 @@
       mc:Ignorable="d" 
       WindowTitle="Информация о издателе">
 
-    <Grid Margin="10" Width="320px">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid Margin="10" HorizontalAlignment="Stretch">
         <StackPanel>
             <StackPanel.Resources>
                 <Style TargetType="Label">
-                    <Setter Property="Width" Value="100px"/>
-                    <Setter Property="Margin" Value="5 5 0 5"/>
+                    <Setter Property="Width" Value="100px" />
+                    <Setter Property="Margin" Value="5 5 0 5" />
                 </Style>
                 <Style TargetType="TextBox">
-                    <Setter Property="Width" Value="200px"/>
-                    <Setter Property="Margin" Value="5 5 0 5"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="5 5 0 5" />
+                    <Setter Property="Height" Value="25" />
+                </Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="5 5 0 5" />
+                    <Setter Property="Height" Value="25" />
                 </Style>
                 <Style TargetType="DockPanel">
-                    <Setter Property="Width" Value="300px"/>
+                    <Setter Property="Width" Value="300px" />
                 </Style>
                 <Style TargetType="Button">
-                    <Setter Property="Margin" Value="5 5 0 5"/>
-                    <Setter Property="HorizontalAlignment" Value="Right"/>
-                    <Setter Property="Width" Value="75px"/>
+                    <Setter Property="Margin" Value="5 5 0 5" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="Width" Value="75px" />
                 </Style>
             </StackPanel.Resources>
             <DockPanel>
-                <Label></Label>
-                <TextBox></TextBox>
+                <Label>Наименование</Label>
+                <TextBox Text="{Binding Name}" />
             </DockPanel>
             <DockPanel>
-                <Label></Label>
-                <TextBox></TextBox>
+                <Label>Описание</Label>
+                <TextBox Text="{Binding Description}" />
             </DockPanel>
-            <DockPanel>
-                <Label></Label>
-                <TextBox></TextBox>
-            </DockPanel>
-            <DockPanel>
-                <Button Content="Сохранить"></Button>
-                <Button Content="Отмена"></Button>
+            <DockPanel LastChildFill="False">
+                <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                <Button Content="Отмена" Command="{Binding CancelCommand}"/>
             </DockPanel>
         </StackPanel>
     </Grid>

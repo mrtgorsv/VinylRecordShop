@@ -1,22 +1,18 @@
 ﻿using System.Windows.Input;
+using VinylRecordShop.Logic;
 
 namespace VinylRecordShop.ViewModels.Base
 {
     public partial class EntityViewModel<T>
     {
-        private ICommand _saveCommand;
-        private ICommand _cancelCommand;
+        public ICommand CancelCommand
+        {
+            get { return new DelegateCommand(Cancel); }
+        }
 
         public ICommand SaveCommand
         {
-            get { return _saveCommand; }
-            set { _saveCommand = value; }
-        }
-
-        public ICommand CancelCommand
-        {
-            get { return _cancelCommand; }
-            set { _cancelCommand = value; }
+            get { return new DelegateCommand(Save); }
         }
     }
 }
