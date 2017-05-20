@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using VinylRecodShop.Model.Database.DatabaseContext;
 using VinylRecodShop.Model.Partial;
@@ -8,10 +9,10 @@ namespace VinylRecordShop.Services.Services.Implementation
 {
     public class ServiceBase<T> : IEntityService<T> where T : class , IEntity
     {
-        private VinylRecordEntities _context;
+        protected VinylRecordEntities EntityContext;
         public ServiceBase()
         {
-            _context = new VinylRecordEntities();
+            EntityContext = new VinylRecordEntities();
         }
         public T Get(int id)
         {
@@ -19,38 +20,49 @@ namespace VinylRecordShop.Services.Services.Implementation
             {
                 return Create();
             }
-            return _context.Set<T>().FirstOrDefault(entity => entity.Id.Equals(id));
+            return EntityContext.Set<T>().FirstOrDefault(entity => entity.Id.Equals(id));
         }
 
         public bool Delete(T entity)
         {
-            _context.Entry(entity).State = EntityState.Deleted;
-            _context.SaveChanges();
+            EntityContext.Entry(entity).State = EntityState.Deleted;
+            EntityContext.SaveChanges();
             return true;
         }
 
         public T Create()
         {
-            return _context.Set<T>().Create();
+            return EntityContext.Set<T>().Create();
         }
 
         public void AddOrUpdate(T entity)
         {
-            if (entity.Id > 0)
+            if (entity.Id == 0)
             {
-                _context.Entry(entity).State = EntityState.Modified;
+                EntityContext.Set<T>().Add(entity);
             }
-            else
-            {
-                _context.Set<T>().Add(entity);
-            }
-            _context.SaveChanges();
+
+            DbEntityEntry<T> entityEntry = EntityContext.Entry(entity);
+            entityEntry.State = entity.Id == 0 ? EntityState.Added : EntityState.Modified;
+
+            EntityContext.SaveChanges();
         }
 
         public List<T> GetAll()
         {
-            var query = _context.Set<T>();
+            var query = EntityContext.Set<T>();
             return query.ToList();
+        }
+
+        public virtual bool CanDelete(int id)
+        {
+            return true;
+        }
+
+        public bool SaveChanges()
+        {
+            EntityContext.SaveChanges();
+            return true;
         }
     }
 }

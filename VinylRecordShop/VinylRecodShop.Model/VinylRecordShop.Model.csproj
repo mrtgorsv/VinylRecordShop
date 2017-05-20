@@ -115,10 +115,10 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Database\VinylRecordDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\VinylRecordDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>VinylRecordDB.mdf</DependentUpon>
     </Content>
     <Content Include="Database\DatabaseContext\VinylRecordModel.Context.tt">

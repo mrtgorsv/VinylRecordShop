@@ -6,39 +6,40 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       WindowTitle="Список авторов">
-    
-    <Grid>
-        <DockPanel LastChildFill="True">
-            <ToolBarTray DockPanel.Dock="Top" Margin="5 5 5 0" IsLocked="True">
-                <ToolBar OverflowMode="Never">
-                    <Button Command="{ Binding AddCommand }" Content="Добавить" />
-                    <Button Command="{ Binding EditCommand }" IsEnabled="{ Binding ItemSelected }"
-                            Content="Редактировать" />
-                    <Button Command="{ Binding DeleteCommand }" IsEnabled="{ Binding ItemSelected }" Content="Удалить" />
-                    <Button Command="{ Binding RefreshCommand }" Content="Обновить" />
-                </ToolBar>
-            </ToolBarTray>
-            <DataGrid ItemsSource="{Binding EntityDataSource}" AlternatingRowBackground="Azure" CanUserAddRows="False"
-                      CanUserSortColumns="True" Margin="5 0 5 5" AutoGenerateColumns="False" IsReadOnly="True"
-                      SelectedItem="{ Binding SelectedItem }" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="*">
-                        <DataGridTextColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Style="{StaticResource CustomHeaderStyle }"
-                                               Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}" />
-                                    <TextBox Style="{StaticResource CustomFilterHeaderStyle }"
-                                             Text="{Binding Path=DataContext.DataGridFilterViewModel.Name , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}} , Delay=1000, Mode=OneWayToSource , UpdateSourceTrigger=PropertyChanged}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTextColumn.HeaderTemplate>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}">
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yy\}}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
+
+    <Grid Style="{StaticResource BaseGridStyle}">
+        <Border Style="{StaticResource FormBorderStyle}">
+            <DockPanel LastChildFill="True">
+                <ToolBarTray DockPanel.Dock="Top" Margin="5 5 5 0" IsLocked="True">
+                    <ToolBar OverflowMode="Never">
+                        <Button Command="{ Binding AddCommand }" Content="Добавить" />
+                        <Button Command="{ Binding EditCommand }" IsEnabled="{ Binding ItemSelected }"
+                                Content="Редактировать" />
+                        <Button Command="{ Binding DeleteCommand }" IsEnabled="{ Binding DeleteAviable }" Content="Удалить" />
+                        <Button Command="{ Binding RefreshCommand }" Content="Обновить" />
+                    </ToolBar>
+                </ToolBarTray>
+                <DataGrid ItemsSource="{Binding EntityDataSource}" Name="EntityDataGrid" SelectedItem="{ Binding SelectedItem }">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="*">
+                            <DataGridTextColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource CustomHeaderStyle }"
+                                                   Text="{Binding Content, RelativeSource= {RelativeSource Mode=TemplatedParent}}" />
+                                        <TextBox Style="{StaticResource CustomFilterHeaderStyle }"
+                                                 Text="{Binding Path=DataContext.DataGridFilterViewModel.Name , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}} , Delay=1000, Mode=OneWayToSource , UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTextColumn.HeaderTemplate>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Дата рождения" Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <TextBlock Text="Нет данных" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=EntityDataGrid}" />
+            </DockPanel>
+        </Border>
     </Grid>
 </Page>

@@ -33,7 +33,6 @@ namespace VinylRecordShop.ViewModels.Base
             {
                 NavigationHelper.NavigationService.GoBack();
             }
-            NavigationHelper.NavigationService.RemoveBackEntry();
         }
 
         protected List<CountryViewModel> GetCountryList()

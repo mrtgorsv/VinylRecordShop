@@ -9,7 +9,7 @@ using VinylRecordShop.Services.Services;
 
 namespace VinylRecordShop.ViewModels.Base
 {
-    public abstract partial class ListViewModelBase<T> : ViewModelBase where T : class , IEntity 
+    public abstract partial class ListViewModelBase<T> : ViewModelBase , IListViewModel where T : class , IEntity 
     {
         private ObservableCollection<EntityViewModel<T>> _dataSource;
         private EntityViewModel<T> _selectedItem;
@@ -55,11 +55,18 @@ namespace VinylRecordShop.ViewModels.Base
                 _selectedItem = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ItemSelected));
+                OnPropertyChanged(nameof(DeleteAviable));
             }
         }
+
         public bool ItemSelected
         {
             get { return SelectedItem != null; }
+        }
+
+        public bool DeleteAviable
+        {
+            get { return ItemSelected && _entityService.CanDelete(SelectedItem.Entity.Id); }
         }
 
         public ListViewModelBase(IEntityService<T> service)
@@ -76,9 +83,10 @@ namespace VinylRecordShop.ViewModels.Base
 
         protected abstract  Page GetDetailPage(int entityId = 0);
 
-        private void RefreshDataSource()
+        public bool RefreshDataSource()
         {
             EntityDataSource = new ObservableCollection<EntityViewModel<T>>(LoadDataSource());
+            return true;
         }
 
         private void OnFilterChanged(object sender, EventArgs e)
@@ -100,4 +108,4 @@ namespace VinylRecordShop.ViewModels.Base
             return DataGridFilterViewModel.Filter(entityViewModel.Entity);
         }
     }
-}
+ }

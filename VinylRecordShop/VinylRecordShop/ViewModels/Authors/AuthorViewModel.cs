@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 using VinylRecodShop.Model.Database.DatabaseContext;
-using VinylRecordShop.Logic.Enums;
 using VinylRecordShop.Pages.Author;
 using VinylRecordShop.Services.Services.Implementation;
 using VinylRecordShop.ViewModels.Base;

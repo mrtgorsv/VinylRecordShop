@@ -7,39 +7,42 @@
       d:DesignHeight="300" d:DesignWidth="300"
       WindowTitle="Информация о жанре">
 
+    <Page.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Width" Value="100px" />
+            <Setter Property="Margin" Value="5 5 0 5" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="5 5 0 5" />
+            <Setter Property="Height" Value="25" />
+        </Style>
+        <Style TargetType="DockPanel">
+            <Setter Property="Width" Value="300px" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5 5 0 5" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Width" Value="75px" />
+        </Style>
+    </Page.Resources>
+    
     <Grid Margin="10" HorizontalAlignment="Stretch">
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="Label">
-                    <Setter Property="Width" Value="100px" />
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                </Style>
-                <Style TargetType="ComboBox">
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                    <Setter Property="Height" Value="25" />
-                </Style>
-                <Style TargetType="DockPanel">
-                    <Setter Property="Width" Value="300px" />
-                </Style>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="5 5 0 5" />
-                    <Setter Property="HorizontalAlignment" Value="Right" />
-                    <Setter Property="Width" Value="75px" />
-                </Style>
-            </StackPanel.Resources>
-            <DockPanel>
-                <Label>Наименование</Label>
-                <TextBox Text="{Binding Name , ValidatesOnDataErrors=True}" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Описание</Label>
-                <TextBox Text="{Binding Description}" />
-            </DockPanel>
-            <DockPanel LastChildFill="False">
-                <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
-                <Button Content="Отмена" Command="{Binding CancelCommand}"/>
-            </DockPanel>
-        </StackPanel>
+        <Border Style="{StaticResource FormBorderStyle}" DockPanel.Dock="Top">
+            <StackPanel>
+                <DockPanel>
+                    <Label>Наименование</Label>
+                    <TextBox Text="{Binding Name , ValidatesOnDataErrors=True, Mode=TwoWay}" MaxLength="100"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label>Описание</Label>
+                    <TextBox Text="{Binding Description, Mode=TwoWay}"  MaxLength="400"/>
+                </DockPanel>
+                <DockPanel LastChildFill="False">
+                    <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                    <Button Content="Отмена" Command="{Binding CancelCommand}"/>
+                </DockPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

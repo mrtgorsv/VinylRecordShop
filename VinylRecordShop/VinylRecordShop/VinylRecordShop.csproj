@@ -103,6 +103,7 @@
     <Compile Include="ViewModels\Base\CountryViewModel.cs" />
     <Compile Include="ViewModels\Base\EntityViewModel.Commands.cs" />
     <Compile Include="ViewModels\Base\EntityViewModel.cs" />
+    <Compile Include="ViewModels\Base\IListViewModel.cs" />
     <Compile Include="ViewModels\Base\IFilterViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Genres\GenreLightViewModel.cs" />

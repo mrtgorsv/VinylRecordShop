@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="300" d:DesignWidth="300"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       WindowTitle="Информация о пластинке">
     <Page.Resources>
@@ -28,47 +27,53 @@
     </Page.Resources>
 
     <Grid Margin="10" HorizontalAlignment="Stretch">
-        <StackPanel>
-            <DockPanel>
-                <Label>Наименование</Label>
-                <TextBox Text="{Binding Name , ValidatesOnDataErrors=True}" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Автор</Label>
-                <ComboBox ItemsSource="{Binding AuthorList }" DisplayMemberPath="Name"
-                          SelectedValuePath="Id" SelectedValue="{Binding AuthorId, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Издатель</Label>
-                <ComboBox ItemsSource="{Binding PublisherList}" DisplayMemberPath="Name"
-                          SelectedValuePath="Id" SelectedValue="{Binding PublisherId , Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Год выпуска</Label>
-                <xctk:IntegerUpDown Text="{Binding ReleaseYear , ValidatesOnDataErrors=True}" Minimum="1800" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Страна</Label>
-                <ComboBox ItemsSource="{Binding CountryList}" DisplayMemberPath="Name"
-                          SelectedValuePath="Code" SelectedValue="{Binding CountryCode , Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Жанр</Label>
-                <ComboBox ItemsSource="{Binding GenreList}" DisplayMemberPath="Name"
-                          SelectedValuePath="Id" SelectedValue="{Binding GenreId , Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Тип</Label>
-                <ComboBox ItemsSource="{Binding VinylTypes}" SelectedItem="{Binding VinylType , Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel>
-                <Label>Цена</Label>
-                <xctk:IntegerUpDown Text="{Binding Cost}"/>
-            </DockPanel>
-            <DockPanel>
-                <Button Content="Сохранить" Command="{Binding SaveCommand}" />
-                <Button Content="Отмена" Command="{Binding CancelCommand}" />
-            </DockPanel>
-        </StackPanel>
+        <Border Style="{StaticResource FormBorderStyle}" DockPanel.Dock="Top">
+            <StackPanel>
+                <DockPanel>
+                    <Label>Наименование</Label>
+                    <TextBox Text="{Binding Name , ValidatesOnDataErrors=True, Mode=TwoWay}"  MaxLength="100"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label>Автор</Label>
+                    <ComboBox ItemsSource="{Binding AuthorList }" DisplayMemberPath="Name"
+                              SelectedValuePath="Id" SelectedValue="{Binding AuthorId, Mode=TwoWay}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label>Издатель</Label>
+                    <ComboBox ItemsSource="{Binding PublisherList}" DisplayMemberPath="Name"
+                              SelectedValuePath="Id" SelectedValue="{Binding PublisherId , Mode=TwoWay}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label>Год выпуска</Label>
+                    <xctk:IntegerUpDown Text="{Binding ReleaseYear , ValidatesOnDataErrors=True}" Minimum="1800" />
+                </DockPanel>
+                <DockPanel>
+                    <Label>Страна</Label>
+                    <ComboBox ItemsSource="{Binding CountryList}" DisplayMemberPath="Name"
+                              SelectedValuePath="Code" SelectedValue="{Binding CountryCode , Mode=TwoWay}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label>Жанр</Label>
+                    <ComboBox ItemsSource="{Binding GenreList}" DisplayMemberPath="Name"
+                              SelectedValuePath="Id" SelectedValue="{Binding GenreId , Mode=TwoWay}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label>Тип</Label>
+                    <ComboBox ItemsSource="{Binding VinylTypes}" SelectedItem="{Binding VinylType , Mode=TwoWay}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label>Цена</Label>
+                    <xctk:IntegerUpDown Text="{Binding Cost}"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label>Описание</Label>
+                    <TextBox Text="{Binding Description, Mode=TwoWay}" MaxLength="400"/>
+                </DockPanel>
+                <DockPanel LastChildFill="False">
+                    <Button Content="Сохранить" Command="{Binding SaveCommand}" />
+                    <Button Content="Отмена" Command="{Binding CancelCommand}" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

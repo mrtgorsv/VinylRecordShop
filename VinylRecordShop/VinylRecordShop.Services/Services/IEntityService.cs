@@ -9,5 +9,7 @@ namespace VinylRecordShop.Services.Services
         T Create();
         void AddOrUpdate(T entity);
         List<T> GetAll();
+        bool CanDelete(int id);
+        bool SaveChanges();
     } 
 }
