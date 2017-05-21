@@ -67,6 +67,9 @@
     <Compile Include="Database\DatabaseContext\Author.cs">
       <DependentUpon>VinylRecordModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\DatabaseContext\EntityEventLog.cs">
+      <DependentUpon>VinylRecordModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\DatabaseContext\Genre.cs">
       <DependentUpon>VinylRecordModel.tt</DependentUpon>
     </Compile>

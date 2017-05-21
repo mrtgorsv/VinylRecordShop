@@ -15,6 +15,17 @@
           <Property Name="Description" Type="nvarchar" MaxLength="400" />
           <Property Name="BirthDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="EntityEventLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionType" Type="smallint" Nullable="false" />
+          <Property Name="EntityJson" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+          <Property Name="EntityId" Type="int" />
+          <Property Name="EntityType" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Genre">
           <Key>
             <PropertyRef Name="Id" />
@@ -84,6 +95,7 @@
         </Association>
         <EntityContainer Name="VinylRecordDBModelStoreContainer">
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntityEventLog" EntityType="Self.EntityEventLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Publisher" EntityType="Self.Publisher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VinylRecord" EntityType="Self.VinylRecord" Schema="dbo" store:Type="Tables" />
@@ -183,6 +195,7 @@
             <End Role="Genre" EntitySet="Genres" />
             <End Role="VinylRecord" EntitySet="VinylRecords" />
           </AssociationSet>
+          <EntitySet Name="EntityEventLogs" EntityType="VinylRecordDBModel.EntityEventLog" />
         </EntityContainer>
         <EntityType Name="Genre">
           <Key>
@@ -205,6 +218,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EntityEventLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionType" Type="Int16" Nullable="false" />
+          <Property Name="EntityJson" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EntityId" Type="Int32" />
+          <Property Name="EntityType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -252,6 +276,18 @@
               <MappingFragment StoreEntitySet="Genre">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntityEventLogs">
+            <EntityTypeMapping TypeName="VinylRecordDBModel.EntityEventLog">
+              <MappingFragment StoreEntitySet="EntityEventLog">
+                <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="EntityJson" ColumnName="EntityJson" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

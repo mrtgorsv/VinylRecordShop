@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using Newtonsoft.Json;
 using VinylRecodShop.Model.Database.DatabaseContext;
 using VinylRecodShop.Model.Partial;
 
@@ -27,6 +30,7 @@ namespace VinylRecordShop.Services.Services.Implementation
         {
             EntityContext.Entry(entity).State = EntityState.Deleted;
             EntityContext.SaveChanges();
+            Log(ActionType.Delete, entity);
             return true;
         }
 
@@ -37,21 +41,29 @@ namespace VinylRecordShop.Services.Services.Implementation
 
         public void AddOrUpdate(T entity)
         {
-            if (entity.Id == 0)
+            bool isCreate = entity.Id == 0;
+            if (isCreate)
             {
                 EntityContext.Set<T>().Add(entity);
             }
 
             DbEntityEntry<T> entityEntry = EntityContext.Entry(entity);
-            entityEntry.State = entity.Id == 0 ? EntityState.Added : EntityState.Modified;
+            entityEntry.State = isCreate ? EntityState.Added : EntityState.Modified;
 
             EntityContext.SaveChanges();
+
+            Log(isCreate ? ActionType.Add : ActionType.Update , entity);
         }
 
-        public List<T> GetAll()
+        public virtual List<T> GetAll()
         {
             var query = EntityContext.Set<T>();
             return query.ToList();
+        }
+
+        public IQueryable<T> GetQuery()
+        {
+            return EntityContext.Set<T>();
         }
 
         public virtual bool CanDelete(int id)
@@ -64,5 +76,36 @@ namespace VinylRecordShop.Services.Services.Implementation
             EntityContext.SaveChanges();
             return true;
         }
+
+        protected void Log(ActionType actionType, T entity = null)
+        {
+            EntityEventLog logRecord = EntityContext.EntityEventLogs.Create();
+            logRecord.ActionDate = DateTime.Now;
+            logRecord.ActionType = (short) actionType;
+            logRecord.EntityType = typeof(T).Name;
+
+            if (entity != null && entity.Id != 0)
+            {
+                logRecord.EntityJson = JsonConvert.SerializeObject(entity, Formatting.Indented,
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+                logRecord.EntityId = entity.Id;
+            }
+            EntityContext.EntityEventLogs.Add(logRecord);
+
+            EntityContext.SaveChanges();
+        }
+    }
+
+    public enum ActionType
+    {
+        [Display(Name = "Добавление")]
+        Add = 0,
+        [Display(Name = "Обновление")]
+        Update = 1,
+        [Display(Name = "Удаление")]
+        Delete = 2
     }
 }

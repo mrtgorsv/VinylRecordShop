@@ -4,10 +4,10 @@ namespace VinylRecordShop.Logic.Enums
 {
     public enum VinylType
     {
-        [Display(Name = "Долгоиграющая")]
+        [Display(Name = "Долгоиграющая(Lp)")]
         Lp = 0,
 
-        [Display(Name = "Маленькая")]
+        [Display(Name = "Маленькая(Sp)")]
         Sp = 1
     }
 }

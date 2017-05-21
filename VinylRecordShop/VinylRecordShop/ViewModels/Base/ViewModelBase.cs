@@ -51,6 +51,11 @@ namespace VinylRecordShop.ViewModels.Base
 
         protected string GetCountryName(string code)
         {
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                return "Нет данных";
+            }
+
             var cultureInfo = new CultureInfo(code);
             var ri = new RegionInfo(cultureInfo.Name);
             return ri.DisplayName;
